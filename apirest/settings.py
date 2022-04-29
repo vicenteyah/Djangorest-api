@@ -15,7 +15,8 @@ from pathlib import Path
 import environ
 
 # reading .env file
-env = environ.Env()
+environ.Env.read_env()
+env = environ.Env(DEBUG=(bool, False))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,13 +83,13 @@ USE_DATABASE_URL = eval(env('USE_DATABASE_URL'))
 
 if USE_DATABASE_URL:
     import dj_database_url
-
-    DATABASES = {"default": dj_database_url.config(default=env('DATABASE_URL'))}
+    
+    DATABASES = {"default": dj_database_url.config(default=env("DATABASE_URL"))}
 
 if not USE_DATABASE_URL:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
             'NAME': env("DATABASE_NAME"),
             'USER': env("DATABASE_USER"),
             'PASSWORD': env("DATABASE_PASSWORD"),
