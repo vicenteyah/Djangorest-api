@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     # 3rd party apps\
     'notes',
     'rest_framework',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
